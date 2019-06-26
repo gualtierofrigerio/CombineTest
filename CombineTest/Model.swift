@@ -16,7 +16,7 @@ struct ViewModel {
     @Published var passwordRepeat:String = ""
     
     var validCredential:AnyPublisher<Bool, Never> {
-        return validUsername.combineLatest(validPassword) { (validUsername, validPassword) in
+        return Publishers.CombineLatest(validUsername, validPassword) { (validUsername, validPassword) in
             return validUsername && validPassword
             }.eraseToAnyPublisher()
     }
