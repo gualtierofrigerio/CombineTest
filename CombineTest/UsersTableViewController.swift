@@ -10,40 +10,58 @@ import UIKit
 
 class UsersTableViewController: UITableViewController {
 
+    let cellIdentifier = "CellIdentifier"
+    var filteredUsers = [User]()
+    var users = [User]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+    }
+    
+    func setUsers(_ users:[User]) {
+        self.users = users
+        applyFilter("")
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return filteredUsers.count
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        return makeCell(indexPath: indexPath)
+    }
+}
 
-        // Configure the cell...
+// MARK: - Private
 
+extension UsersTableViewController {
+    private func applyFilter(_ filter:String) {
+        if filter.count > 0 {
+            filteredUsers = users.filter({
+                return $0.username.lowercased().contains(filter.lowercased())
+            })
+        }
+        else {
+            filteredUsers = users
+        }
+        tableView.reloadData()
+    }
+    
+    private func makeCell(indexPath:IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+        
+        if indexPath.row < filteredUsers.count {
+            let user = filteredUsers[indexPath.row]
+            cell.textLabel?.text = user.username
+        }
+        
         return cell
     }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
