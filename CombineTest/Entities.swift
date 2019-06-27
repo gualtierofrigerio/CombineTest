@@ -46,3 +46,20 @@ struct User:Codable {
         albums?.append(album)
     }
 }
+
+enum Entity {
+    case Album
+    case Picture
+    case User
+    
+    var endPoint: String {
+        switch self {
+        case .Album:
+            return "/albums"
+        case .Picture:
+            return "/photos"
+        case .User:
+            return "/users"
+        }
+    }
+}
