@@ -1,5 +1,5 @@
 //
-//  Model.swift
+//  RegistrationViewModel.swift
 //  CombineTest
 //
 //  Created by Gualtiero Frigerio on 13/06/2019.
@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-struct ViewModel {
+struct RegistrationViewModel {
     
     @Published var username:String = ""
     @Published var password:String = ""
