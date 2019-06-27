@@ -83,10 +83,10 @@
             </objects>
             <point key="canvasLocation" x="1389.8550724637682" y="-346.20535714285711"/>
         </scene>
-        <!--View Controller-->
+        <!--Main View Controller-->
         <scene sceneID="shV-vj-7qv">
             <objects>
-                <viewController id="wZe-8g-r6N" sceneMemberID="viewController">
+                <viewController id="wZe-8g-r6N" customClass="MainViewController" customModule="CombineTest" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XJx-Mu-mhA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -97,6 +97,14 @@
                                 <state key="normal" title="Register"/>
                                 <connections>
                                     <segue destination="BYZ-38-t0r" kind="show" id="sfi-6S-3qa"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N88-Wp-SdE">
+                                <rect key="frame" x="167" y="215" width="80" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Show users"/>
+                                <connections>
+                                    <action selector="showUsersTap:" destination="EWX-WJ-slN" eventType="touchUpInside" id="gUr-ZH-JLL"/>
                                 </connections>
                             </button>
                         </subviews>
