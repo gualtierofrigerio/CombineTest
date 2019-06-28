@@ -9,6 +9,8 @@
 import Combine
 import Foundation
 
+typealias DataTuple = ([Picture], [Album], [User])
+
 class DataSource {
     
     var baseURLString:String
@@ -18,11 +20,21 @@ class DataSource {
     }
     
     func getUsersWithMergedData() -> AnyPublisher<[User], Never> {
+        return Publishers.Zip3(getPictures(), getAlbums(), getUsers())
+            .map {
+                let mergedAlbums = DataSource.mergeAlbums($1, withPictures: $0)
+                return DataSource.mergeUsers($2, withAlbums: mergedAlbums)
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    // alternative with CombineLatest
+    func getUsersWithMergedDataLatest() -> AnyPublisher<[User], Never> {
         return Publishers.CombineLatest3(getPictures(), getAlbums(), getUsers()) {pictures ,albums, users in
             let mergedAlbums = DataSource.mergeAlbums(albums, withPictures: pictures)
             let mergedUsers = DataSource.mergeUsers(users, withAlbums: mergedAlbums)
             return mergedUsers
-        }.eraseToAnyPublisher()
+            }.eraseToAnyPublisher()
     }
 }
 

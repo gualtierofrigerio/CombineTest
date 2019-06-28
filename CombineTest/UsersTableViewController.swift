@@ -6,22 +6,29 @@
 //  Copyright © 2019 Gualtiero Frigerio. All rights reserved.
 //
 
+import Combine
 import UIKit
 
 class UsersTableViewController: UITableViewController {
 
+    @Published var filter = ""
+    
     let cellIdentifier = "CellIdentifier"
     var filteredUsers = [User]()
     var users = [User]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureSearchViewController()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
     }
     
     func setUsers(_ users:[User]) {
         self.users = users
-        applyFilter("")
+        _ = $filter.sink { value in
+            self.applyFilter(value)
+        }
+        filter = ""
     }
 
     // MARK: - Table view data source
@@ -39,6 +46,19 @@ class UsersTableViewController: UITableViewController {
     }
 }
 
+// MARK: - UISearchControllerDelegate
+
+extension UsersTableViewController : UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        if let searchText = searchController.searchBar.text {
+            filter = searchText
+        }
+        else {
+            filter = ""
+        }
+    }
+}
+
 // MARK: - Private
 
 extension UsersTableViewController {
@@ -52,6 +72,14 @@ extension UsersTableViewController {
             filteredUsers = users
         }
         tableView.reloadData()
+    }
+    
+    private func configureSearchViewController() {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController = searchController
     }
     
     private func makeCell(indexPath:IndexPath) -> UITableViewCell {
