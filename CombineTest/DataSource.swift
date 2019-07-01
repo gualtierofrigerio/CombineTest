@@ -71,7 +71,6 @@ extension DataSource {
     }
     
     class func makeError(withString errorString:String) -> DataSourceError {
-        print("make error...")
         return DataSourceError.error(errorString)
     }
 }
@@ -89,7 +88,6 @@ extension DataSource {
             return Publishers.Fail(error:DataSource.makeError(withString: "cannot get url")).eraseToAnyPublisher()
         }
         return RESTClient.getData(atURL: url)
-            .replaceError(with: getEmptyData())
             .catch { _ in
                 Publishers.Fail(error:DataSource.makeError(withString: "error converting data")).eraseToAnyPublisher()
             }
