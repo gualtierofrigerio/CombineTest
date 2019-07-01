@@ -69,20 +69,29 @@ extension DataSource {
         }
         return usersWithAlbums
     }
+    
+    class func makeError(withString errorString:String) -> DataSourceError {
+        print("make error...")
+        return DataSourceError.error(errorString)
+    }
 }
 
 // MARK: - Private functions
 
 extension DataSource {
     
+    private func getEmptyData() -> Data {
+        return Data()
+    }
+    
     private func getEntity(_ entity:Entity) -> AnyPublisher<Data, DataSourceError> {
         guard let url = getUrl(forEntity: entity) else {
-            return Publishers.Fail(error:DataSourceError.error("cannot get url")).eraseToAnyPublisher()
+            return Publishers.Fail(error:DataSource.makeError(withString: "cannot get url")).eraseToAnyPublisher()
         }
         return RESTClient.getData(atURL: url)
-            .replaceError(with: Data())
+            .replaceError(with: getEmptyData())
             .catch { _ in
-                Publishers.Fail(error:DataSourceError.error("cannot get data")).eraseToAnyPublisher()
+                Publishers.Fail(error:DataSource.makeError(withString: "error converting data")).eraseToAnyPublisher()
             }
             .eraseToAnyPublisher()
     }
@@ -100,7 +109,7 @@ extension DataSource {
         return getEntity(.Picture)
             .decode(type: [Picture].self, decoder: JSONDecoder())
             .catch { error in
-                return Publishers.Just<[Picture]>([])
+                Publishers.Just<[Picture]>([])
             }
             .eraseToAnyPublisher()
     }
@@ -109,7 +118,7 @@ extension DataSource {
         return getEntity(.User)
             .decode(type: [User].self, decoder: JSONDecoder())
             .catch { error in
-                return Publishers.Just<[User]>([])
+                Publishers.Just<[User]>([])
             }
             .eraseToAnyPublisher()
     }
