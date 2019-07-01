@@ -9,7 +9,9 @@
 import Combine
 import Foundation
 
-typealias DataTuple = ([Picture], [Album], [User])
+enum DataSourceError:Error {
+    case error(String)
+}
 
 class DataSource {
     
@@ -70,43 +72,44 @@ extension DataSource {
 }
 
 // MARK: - Private functions
-// TODO: have a single function to get a publisher for a specific type
-// to avoid copy/past of guard let url... return RESTClient.getData for each entity
 
 extension DataSource {
     
-    private func getAlbums() -> AnyPublisher<[Album], Never> {
-        guard let url = getUrl(forEntity: .Album) else {
-            return Publishers.Just<[Album]>([]).eraseToAnyPublisher()
+    private func getEntity(_ entity:Entity) -> AnyPublisher<Data, DataSourceError> {
+        guard let url = getUrl(forEntity: entity) else {
+            return Publishers.Fail(error:DataSourceError.error("cannot get url")).eraseToAnyPublisher()
         }
         return RESTClient.getData(atURL: url)
+            .replaceError(with: Data())
+            .catch { _ in
+                Publishers.Fail(error:DataSourceError.error("cannot get data")).eraseToAnyPublisher()
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    private func getAlbums() -> AnyPublisher<[Album], Never> {
+        return getEntity(.Album)
             .decode(type: [Album].self, decoder: JSONDecoder())
-            .catch { _  in
-                Publishers.Just<[Album]>([]).eraseToAnyPublisher()
+            .catch { error in
+                Publishers.Just<[Album]>([])
             }
             .eraseToAnyPublisher()
     }
     
     private func getPictures() -> AnyPublisher<[Picture], Never> {
-        guard let url = getUrl(forEntity: .Picture) else {
-            return Publishers.Just<[Picture]>([]).eraseToAnyPublisher()
-        }
-        return RESTClient.getData(atURL: url)
+        return getEntity(.Picture)
             .decode(type: [Picture].self, decoder: JSONDecoder())
-            .catch { _  in
-                Publishers.Just<[Picture]>([]).eraseToAnyPublisher()
+            .catch { error in
+                return Publishers.Just<[Picture]>([])
             }
             .eraseToAnyPublisher()
     }
     
     private func getUsers() -> AnyPublisher<[User], Never> {
-        guard let url = getUrl(forEntity: .User) else {
-            return Publishers.Just<[User]>([]).eraseToAnyPublisher()
-        }
-        return RESTClient.getData(atURL: url)
+        return getEntity(.User)
             .decode(type: [User].self, decoder: JSONDecoder())
-            .catch { _  in
-                Publishers.Just<[User]>([]).eraseToAnyPublisher()
+            .catch { error in
+                return Publishers.Just<[User]>([])
             }
             .eraseToAnyPublisher()
     }

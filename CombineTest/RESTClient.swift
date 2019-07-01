@@ -19,7 +19,8 @@ class RESTClient {
         return AnyPublisher { subscriber in
             let task = session.dataTask(with: url) { data, response, error in
                 if let err = error {
-                    subscriber.receive(completion: .failure(.error(error: err.localizedDescription)))
+                    subscriber.receive(completion: .failure(RESTClientError.error(error: "error")))
+                    //subscriber.receive(completion: .finished)
                 }
                 else {
                     if let data = data {
