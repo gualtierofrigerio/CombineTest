@@ -1,3 +1,10 @@
 # CombineTest
 Sample project to play with the Combine Framework
-See http://www.gfrigerio.com/combine-first-example/
+
+Articles:
+
+
+http://www.gfrigerio.com/combine-first-example/
+
+
+http://www.gfrigerio.com/networking-example-with-combine/
