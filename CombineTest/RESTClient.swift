@@ -10,16 +10,16 @@ import Combine
 import Foundation
 
 enum RESTClientError : Error {
-    case error(error:String)
+    case error(String)
 }
 
 class RESTClient {
-    class func getData(atURL url:URL) -> AnyPublisher<Data, RESTClientError> {
+    class func getDataPublisher(atURL url:URL) -> AnyPublisher<Data, RESTClientError> {
         let session = URLSession.shared
         return AnyPublisher { subscriber in
             let task = session.dataTask(with: url) { data, response, error in
                 if let err = error {
-                    subscriber.receive(completion: .failure(RESTClientError.error(error: err.localizedDescription)))
+                    subscriber.receive(completion: .failure(RESTClientError.error( err.localizedDescription)))
                 }
                 else {
                     if let data = data {
@@ -27,8 +27,29 @@ class RESTClient {
                         subscriber.receive(completion: .finished)
                     }
                     else {
-                        let unknownError = RESTClientError.error(error: "Unknown error")
+                        let unknownError = RESTClientError.error("Unknown error")
                         subscriber.receive(completion: .failure(unknownError))
+                    }
+                }
+            }
+            task.resume()
+        }
+    }
+    
+    class func getData(atURL url:URL) -> Publishers.Future<Data, RESTClientError> {
+        let session = URLSession.shared
+        return Publishers.Future { promise in
+            let task = session.dataTask(with: url) { data, response, error in
+                if let err = error {
+                    promise(.failure(RESTClientError.error(err.localizedDescription)))
+                }
+                else {
+                    if let data = data {
+                        promise(.success(data))
+                    }
+                    else {
+                        let unknownError = RESTClientError.error("Unknown error")
+                        promise(.failure(unknownError))
                     }
                 }
             }
