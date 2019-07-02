@@ -14,6 +14,7 @@ struct RemoteEntity<T> where T:Decodable {
     let url:URL?
     let baseURLString = "https://jsonplaceholder.typicode.com"
     var defaultValue:T
+    var value:T
     
     var publisher:AnyPublisher<T, Never> {
         guard let url = url else {
@@ -32,6 +33,4 @@ struct RemoteEntity<T> where T:Decodable {
         self.url = URL(string:baseURLString + entity.endPoint)
         self.value = defaultValue
     }
-    
-    var value:T
 }
