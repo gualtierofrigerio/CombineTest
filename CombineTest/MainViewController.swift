@@ -11,6 +11,7 @@ import UIKit
 class MainViewController: UIViewController {
 
     let dataSource = DataSource(baseURL:"https://jsonplaceholder.typicode.com")
+    let dataSourcePW = DataSourcePW()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,13 +20,12 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func showUsersTap(_ sender: Any) {
-        _ = dataSource.getUsersWithMergedData().sink { users in
+        _ = dataSourcePW.getUsersWithMergedData().sink { users in
             DispatchQueue.main.async {
                 let usersVC = UsersTableViewController()
                 usersVC.setUsers(users)
                 self.navigationController?.pushViewController(usersVC, animated: true)
             }
         }
-        // get users and show UsersTableViewController
     }
 }
