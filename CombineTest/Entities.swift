@@ -8,6 +8,10 @@
 
 import Foundation
 
+protocol Filterable {
+    var filterField:String { get }
+}
+
 struct Album:Codable {
     var id:Int
     var title:String
@@ -31,7 +35,12 @@ struct Picture:Codable {
     var thumbnailUrl:String
 }
 
-struct User:Codable {
+struct User:Codable, Filterable {
+    
+    var filterField:String {
+        return username
+    }
+    
     var id:Int
     var email:String
     var name:String
