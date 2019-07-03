@@ -12,17 +12,17 @@ struct Filtered<T> where T: Filterable {
     
     var filtered:[T] {
         if filter.count > 0 {
-            return value.filter({
+            return wrappedValue.filter({
                 $0.filterField.lowercased().contains(self.filter.lowercased())
             })
         }
-        return value
+        return wrappedValue
     }
     
-    var value:[T]
+    var wrappedValue:[T]
     
     init(initialFilter:String) {
-        self.value = [] as! [T]
+        self.wrappedValue = [] as! [T]
         self.filter = initialFilter
     }
 }

@@ -9,14 +9,14 @@
 import Foundation
 import Combine
 
-struct RegistrationViewModel {
+class RegistrationViewModel {
     
     @Published var username:String = ""
     @Published var password:String = ""
     @Published var passwordRepeat:String = ""
     
     var validCredential:AnyPublisher<Bool, Never> {
-        return Publishers.CombineLatest(validUsername, validPassword) { (validUsername, validPassword) in
+        return validUsername.combineLatest(validPassword) { (validUsername, validPassword) in
             return validUsername && validPassword
             }.eraseToAnyPublisher()
     }

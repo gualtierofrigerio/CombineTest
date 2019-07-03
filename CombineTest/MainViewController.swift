@@ -22,7 +22,7 @@ class MainViewController: UIViewController {
     @IBAction func showUsersTap(_ sender: Any) {
         _ = dataSourcePW.getUsersWithMergedData().sink { users in
             DispatchQueue.main.async {
-                let usersVC = UsersTableViewController()
+                let usersVC = UsersTableViewControllerPW()
                 usersVC.setUsers(users)
                 self.navigationController?.pushViewController(usersVC, animated: true)
             }

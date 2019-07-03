@@ -9,7 +9,7 @@
 import Combine
 import UIKit
 
-class UsersTableViewController: UITableViewController {
+class UsersTableViewControllerPW: UITableViewController {
     
     @Published var filter = ""
     @Filtered(initialFilter:"") var users:[User]
@@ -46,7 +46,7 @@ class UsersTableViewController: UITableViewController {
 
 // MARK: - UISearchControllerDelegate
 
-extension UsersTableViewController : UISearchResultsUpdating {
+extension UsersTableViewControllerPW : UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         if let searchText = searchController.searchBar.text {
             filter = searchText
@@ -59,7 +59,7 @@ extension UsersTableViewController : UISearchResultsUpdating {
 
 // MARK: - Private
 
-extension UsersTableViewController {
+extension UsersTableViewControllerPW {
     private func applyFilter(_ filter:String) {
         $users.filter = filter
         tableView.reloadData()

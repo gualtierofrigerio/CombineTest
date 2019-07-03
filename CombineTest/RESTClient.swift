@@ -14,31 +14,31 @@ enum RESTClientError : Error {
 }
 
 class RESTClient {
-    class func getDataPublisher(atURL url:URL) -> AnyPublisher<Data, RESTClientError> {
-        let session = URLSession.shared
-        return AnyPublisher { subscriber in
-            let task = session.dataTask(with: url) { data, response, error in
-                if let err = error {
-                    subscriber.receive(completion: .failure(RESTClientError.error( err.localizedDescription)))
-                }
-                else {
-                    if let data = data {
-                        _ = subscriber.receive(data)
-                        subscriber.receive(completion: .finished)
-                    }
-                    else {
-                        let unknownError = RESTClientError.error("Unknown error")
-                        subscriber.receive(completion: .failure(unknownError))
-                    }
-                }
-            }
-            task.resume()
-        }
-    }
+//    class func getDataPublisher(atURL url:URL) -> AnyPublisher<Data, RESTClientError> {
+//        let session = URLSession.shared
+//        return AnyPublisher { subscriber in
+//            let task = session.dataTask(with: url) { data, response, error in
+//                if let err = error {
+//                    subscriber.receive(completion: .failure(RESTClientError.error( err.localizedDescription)))
+//                }
+//                else {
+//                    if let data = data {
+//                        _ = subscriber.receive(data)
+//                        subscriber.receive(completion: .finished)
+//                    }
+//                    else {
+//                        let unknownError = RESTClientError.error("Unknown error")
+//                        subscriber.receive(completion: .failure(unknownError))
+//                    }
+//                }
+//            }
+//            task.resume()
+//        }
+//    }
     
-    class func getData(atURL url:URL) -> Publishers.Future<Data, RESTClientError> {
+    class func getData(atURL url:URL) -> Future<Data, RESTClientError> {
         let session = URLSession.shared
-        return Publishers.Future { promise in
+        return Future { promise in
             let task = session.dataTask(with: url) { data, response, error in
                 if let err = error {
                     promise(.failure(RESTClientError.error(err.localizedDescription)))

@@ -31,13 +31,13 @@ class DataSource {
     }
     
     // alternative with CombineLatest
-    func getUsersWithMergedDataLatest() -> AnyPublisher<[User], Never> {
-        return Publishers.CombineLatest3(getPictures(), getAlbums(), getUsers()) {pictures ,albums, users in
-            let mergedAlbums = DataSource.mergeAlbums(albums, withPictures: pictures)
-            let mergedUsers = DataSource.mergeUsers(users, withAlbums: mergedAlbums)
-            return mergedUsers
-            }.eraseToAnyPublisher()
-    }
+//    func getUsersWithMergedDataLatest() -> AnyPublisher<[User], Never> {
+//        return Publishers.CombineLatest3(getPictures(), getAlbums(), getUsers()) {pictures ,albums, users in
+//            let mergedAlbums = DataSource.mergeAlbums(albums, withPictures: pictures)
+//            let mergedUsers = DataSource.mergeUsers(users, withAlbums: mergedAlbums)
+//            return mergedUsers
+//            }.eraseToAnyPublisher()
+//    }
 }
 
 // MARK: - Class functions
@@ -98,7 +98,7 @@ extension DataSource {
         return getEntity(.Album)
             .decode(type: [Album].self, decoder: JSONDecoder())
             .catch { error in
-                Publishers.Just<[Album]>([])
+                Just<[Album]>([])
             }
             .eraseToAnyPublisher()
     }
@@ -107,7 +107,7 @@ extension DataSource {
         return getEntity(.Picture)
             .decode(type: [Picture].self, decoder: JSONDecoder())
             .catch { error in
-                Publishers.Just<[Picture]>([])
+                Just<[Picture]>([])
             }
             .eraseToAnyPublisher()
     }
@@ -116,7 +116,7 @@ extension DataSource {
         return getEntity(.User)
             .decode(type: [User].self, decoder: JSONDecoder())
             .catch { error in
-                Publishers.Just<[User]>([])
+                Just<[User]>([])
             }
             .eraseToAnyPublisher()
     }

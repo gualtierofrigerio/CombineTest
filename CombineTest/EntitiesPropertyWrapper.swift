@@ -14,16 +14,16 @@ struct RemoteEntity<T> where T:Decodable {
     let url:URL?
     let baseURLString = "https://jsonplaceholder.typicode.com"
     var defaultValue:T
-    var value:T
+    var wrappedValue:T
     
     var publisher:AnyPublisher<T, Never> {
         guard let url = url else {
-            return Publishers.Just(self.defaultValue).eraseToAnyPublisher()
+            return Just(self.defaultValue).eraseToAnyPublisher()
         }
         return RESTClient.getData(atURL: url)
             .decode(type: T.self, decoder: JSONDecoder())
             .catch { error in
-                Publishers.Just(self.defaultValue).eraseToAnyPublisher()
+                Just(self.defaultValue).eraseToAnyPublisher()
             }
             .eraseToAnyPublisher()
     }
@@ -31,6 +31,6 @@ struct RemoteEntity<T> where T:Decodable {
     init(entity:Entity) {
         self.defaultValue = [] as! T
         self.url = URL(string:baseURLString + entity.endPoint)
-        self.value = defaultValue
+        self.wrappedValue = defaultValue
     }
 }

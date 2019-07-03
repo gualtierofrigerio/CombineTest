@@ -14,6 +14,8 @@ class RegistrationViewController: UIViewController {
     private var registerButtonSubscriber:AnyCancellable?
     private var viewModel = RegistrationViewModel()
     
+    @Published var password2:String = ""
+    
     @IBOutlet weak var usernameText: UITextField!
     @IBOutlet weak var passwordText: UITextField!
     @IBOutlet weak var passwordRepeatText: UITextField!
@@ -24,7 +26,6 @@ class RegistrationViewController: UIViewController {
         registerButtonSubscriber = viewModel.validCredential
             .receive(on: RunLoop.main)
             .assign(to: \.isEnabled, on: registerButton)
-        
     }
 
     @IBAction func usernameDidChange(_ sender: UITextField) {
@@ -33,6 +34,7 @@ class RegistrationViewController: UIViewController {
     
     @IBAction func passwordDidChange(_ sender: UITextField) {
         viewModel.password = sender.text ?? ""
+        password2 = sender.text ?? ""
     }
     
     @IBAction func passwordRepeatDidChange(_ sender: UITextField) {
