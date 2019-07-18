@@ -19,7 +19,7 @@ class DataSourcePW {
     @RemoteEntity(entity:.User) var users:[User]
     
     func getUsersWithMergedData() -> AnyPublisher<[User], Never> {
-        return Publishers.Zip3($pictures.publisher, $albums.publisher, $users.publisher)
+        return Publishers.Zip3(_pictures.publisher, _albums.publisher, _users.publisher)
             .map {
                 let mergedAlbums = DataSourcePW.mergeAlbums($1, withPictures: $0)
                 return DataSourcePW.mergeUsers($2, withAlbums: mergedAlbums)

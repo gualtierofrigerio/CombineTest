@@ -85,11 +85,11 @@ extension DataSource {
     
     private func getEntity(_ entity:Entity) -> AnyPublisher<Data, DataSourceError> {
         guard let url = getUrl(forEntity: entity) else {
-            return Publishers.Fail(error:DataSource.makeError(withString: "cannot get url")).eraseToAnyPublisher()
+            return Fail(error:DataSource.makeError(withString: "cannot get url")).eraseToAnyPublisher()
         }
         return RESTClient.getData(atURL: url)
             .catch { _ in
-                Publishers.Fail(error:DataSource.makeError(withString: "error converting data")).eraseToAnyPublisher()
+                Fail(error:DataSource.makeError(withString: "error converting data")).eraseToAnyPublisher()
             }
             .eraseToAnyPublisher()
     }

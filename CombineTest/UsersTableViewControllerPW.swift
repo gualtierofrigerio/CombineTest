@@ -36,7 +36,7 @@ class UsersTableViewControllerPW: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return $users.filtered.count
+        return _users.filtered.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -61,7 +61,7 @@ extension UsersTableViewControllerPW : UISearchResultsUpdating {
 
 extension UsersTableViewControllerPW {
     private func applyFilter(_ filter:String) {
-        $users.filter = filter
+        _users.filter = filter
         tableView.reloadData()
     }
     
@@ -76,8 +76,8 @@ extension UsersTableViewControllerPW {
     private func makeCell(indexPath:IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
         
-        if indexPath.row < $users.filtered.count {
-            let user = $users.filtered[indexPath.row]
+        if indexPath.row < _users.filtered.count {
+            let user = _users.filtered[indexPath.row]
             cell.textLabel?.text = user.username
         }
         
