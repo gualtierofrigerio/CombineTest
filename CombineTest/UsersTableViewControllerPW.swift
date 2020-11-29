@@ -9,8 +9,11 @@
 import Combine
 import UIKit
 
+/// Display a list of users in a UITableView
+/// uses Combine to have a @Published filter
+/// and uses the @Filtered Property Wrapper to change
+/// the users to display
 class UsersTableViewControllerPW: UITableViewController {
-    
     @Published var filter = ""
     @Filtered(initialFilter:"") var users:[User]
     let cellIdentifier = "CellIdentifier"
@@ -42,24 +45,8 @@ class UsersTableViewControllerPW: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return makeCell(indexPath: indexPath)
     }
-}
-
-// MARK: - UISearchControllerDelegate
-
-extension UsersTableViewControllerPW : UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        if let searchText = searchController.searchBar.text {
-            filter = searchText
-        }
-        else {
-            filter = ""
-        }
-    }
-}
-
-// MARK: - Private
-
-extension UsersTableViewControllerPW {
+    
+    // MARK: - Private
     private func applyFilter(_ filter:String) {
         _users.filter = filter
         tableView.reloadData()
@@ -82,5 +69,18 @@ extension UsersTableViewControllerPW {
         }
         
         return cell
+    }
+}
+
+// MARK: - UISearchControllerDelegate
+
+extension UsersTableViewControllerPW : UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        if let searchText = searchController.searchBar.text {
+            filter = searchText
+        }
+        else {
+            filter = ""
+        }
     }
 }

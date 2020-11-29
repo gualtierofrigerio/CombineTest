@@ -14,7 +14,6 @@ enum DataSourceError:Error {
 }
 
 class DataSource {
-    
     var baseURLString:String
     
     init(baseURL:String) {
@@ -30,20 +29,7 @@ class DataSource {
             .eraseToAnyPublisher()
     }
     
-    // alternative with CombineLatest
-//    func getUsersWithMergedDataLatest() -> AnyPublisher<[User], Never> {
-//        return Publishers.CombineLatest3(getPictures(), getAlbums(), getUsers()) {pictures ,albums, users in
-//            let mergedAlbums = DataSource.mergeAlbums(albums, withPictures: pictures)
-//            let mergedUsers = DataSource.mergeUsers(users, withAlbums: mergedAlbums)
-//            return mergedUsers
-//            }.eraseToAnyPublisher()
-//    }
-}
-
-// MARK: - Class functions
-
-extension DataSource {
-    
+    // MARK: - Class functions
     class func mergeAlbums(_ albums:[Album], withPictures pictures:[Picture]) -> [Album] {
         var albumsWithPictures = [Album]()
         for var album in albums {
@@ -73,11 +59,8 @@ extension DataSource {
     class func makeError(withString errorString:String) -> DataSourceError {
         return DataSourceError.error(errorString)
     }
-}
-
-// MARK: - Private functions
-
-extension DataSource {
+    
+    // MARK: - Private
     
     private func getEmptyData() -> Data {
         return Data()

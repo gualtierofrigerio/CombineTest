@@ -9,8 +9,9 @@
 import Combine
 import UIKit
 
+/// Display a list of users in a UITableView
+/// Uses combine as it needs a publisher to react to the filter change
 class UsersTableViewController: UITableViewController {
-
     @Published var filter = ""
     
     let cellIdentifier = "CellIdentifier"
@@ -44,24 +45,8 @@ class UsersTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return makeCell(indexPath: indexPath)
     }
-}
-
-// MARK: - UISearchControllerDelegate
-
-extension UsersTableViewController : UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        if let searchText = searchController.searchBar.text {
-            filter = searchText
-        }
-        else {
-            filter = ""
-        }
-    }
-}
-
-// MARK: - Private
-
-extension UsersTableViewController {
+    
+    // MARK: - Private
     private func applyFilter(_ filter:String) {
         if filter.count > 0 {
             filteredUsers = users.filter({
@@ -93,3 +78,17 @@ extension UsersTableViewController {
         return cell
     }
 }
+
+// MARK: - UISearchControllerDelegate
+
+extension UsersTableViewController : UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        if let searchText = searchController.searchBar.text {
+            filter = searchText
+        }
+        else {
+            filter = ""
+        }
+    }
+}
+

@@ -8,12 +8,10 @@
 
 import Combine
 
-// Alternative implementation of the DataSource class using property wrappers
-// Some of the logic is moved to RemoteEntity so this class only has to
-// combine the 3 publishers and return the merged users
-
+/// Alternative implementation of the DataSource class using property wrappers
+/// Some of the logic is moved to RemoteEntity so this class only has to
+/// combine the 3 publishers and return the merged users
 class DataSourcePW {
-    
     @RemoteEntity(entity:.Album) var albums:[Album]
     @RemoteEntity(entity:.Picture) var pictures:[Picture]
     @RemoteEntity(entity:.User) var users:[User]
@@ -26,11 +24,8 @@ class DataSourcePW {
             }
             .eraseToAnyPublisher()
     }
-}
-
-// MARK: - Class functions
-
-extension DataSourcePW {
+    
+    // MARK: - Class functions
     
     class func mergeAlbums(_ albums:[Album], withPictures pictures:[Picture]) -> [Album] {
         var albumsWithPictures = [Album]()
