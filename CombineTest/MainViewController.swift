@@ -23,7 +23,7 @@ class MainViewController: UIViewController {
         if #available(iOS 15.0, *) {
             let dataSourceAsync = DataSourceAsync(baseURL: "https://jsonplaceholder.typicode.com")
             Task {
-                if let users = await dataSourceAsync.getUsersWithMergedData() {
+                if let users = await dataSourceAsync.getUsersWithMergedDataParallel() {
                     DispatchQueue.main.async {
                         let usersVC = UsersTableViewControllerPW()
                         usersVC.setUsers(users)
