@@ -35,4 +35,14 @@ class RESTClient {
             task.resume()
         }
     }
+    
+    @available (iOS 15.0, *)
+    class func getData(atURL url: URL) async -> Data? {
+        let request = URLRequest(url: url)
+        guard let data = try? await URLSession.shared.data(for: request,
+                                                           delegate: nil)  else {
+            return nil
+        }
+        return data.0
+    }
 }
