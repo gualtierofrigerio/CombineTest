@@ -26,6 +26,21 @@ class DataSourceAsync {
         return DataSource.mergeUsers(users, withAlbums: mergedAlbums)
     }
     
+    func getUsersWithMergedDataParallel() async -> [User]? {
+        async let pictures = getPictures()
+        async let albums = getAlbums()
+        async let users = getUsers()
+        
+        guard let pictures = await pictures,
+              let albums = await albums,
+              let users = await users else {
+                  return nil
+              }
+        
+        let mergedAlbums = DataSource.mergeAlbums(albums, withPictures: pictures)
+        return DataSource.mergeUsers(users, withAlbums: mergedAlbums)
+    }
+    
     // MARK: - Private
     
     private func getEntity(_ entity:Entity) async throws -> Data? {
