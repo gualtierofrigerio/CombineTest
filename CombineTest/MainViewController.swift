@@ -20,12 +20,27 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func showUsersTap(_ sender: Any) {
-        _ = dataSourcePW.getUsersWithMergedData().sink { users in
-            DispatchQueue.main.async {
-                let usersVC = UsersTableViewControllerPW()
-                usersVC.setUsers(users)
-                self.navigationController?.pushViewController(usersVC, animated: true)
+        if #available(iOS 15.0, *) {
+            let dataSourceAsync = DataSourceAsync(baseURL: "https://jsonplaceholder.typicode.com")
+            Task {
+                if let users = await dataSourceAsync.getUsersWithMergedData() {
+                    DispatchQueue.main.async {
+                        let usersVC = UsersTableViewControllerPW()
+                        usersVC.setUsers(users)
+                        self.navigationController?.pushViewController(usersVC, animated: true)
+                    }
+                }
+            }
+        } else {
+            _ = dataSourcePW.getUsersWithMergedData().sink { users in
+                DispatchQueue.main.async {
+                    let usersVC = UsersTableViewControllerPW()
+                    usersVC.setUsers(users)
+                    self.navigationController?.pushViewController(usersVC, animated: true)
+                }
             }
         }
+        
+        
     }
 }
