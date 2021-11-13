@@ -9,10 +9,6 @@
 import Combine
 import Foundation
 
-enum DataSourceError:Error {
-    case error(String)
-}
-
 class DataSource {
     var baseURLString:String
     
@@ -57,7 +53,7 @@ class DataSource {
     }
     
     class func makeError(withString errorString:String) -> DataSourceError {
-        return DataSourceError.error(errorString)
+        return DataSourceError.genericError(errorString)
     }
     
     // MARK: - Private
