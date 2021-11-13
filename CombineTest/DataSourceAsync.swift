@@ -17,9 +17,9 @@ class DataSourceAsync {
     }
     
     func getUsersWithMergedData() async -> [User]? {
-        guard let pictures = await getPictures(),
-              let albums = await getAlbums(),
-              let users = await getUsers() else {
+        guard let pictures = try? await getPictures(),
+              let albums = try? await getAlbums(),
+              let users = try? await getUsers() else {
                   return nil
               }
         let mergedAlbums = DataSource.mergeAlbums(albums, withPictures: pictures)
@@ -31,45 +31,51 @@ class DataSourceAsync {
         async let albums = getAlbums()
         async let users = getUsers()
         
-        guard let pictures = await pictures,
-              let albums = await albums,
-              let users = await users else {
-                  return nil
-              }
-        
-        let mergedAlbums = DataSource.mergeAlbums(albums, withPictures: pictures)
-        return DataSource.mergeUsers(users, withAlbums: mergedAlbums)
+        do {
+            let mergedAlbums = try await DataSource.mergeAlbums(albums, withPictures: pictures)
+            return try await DataSource.mergeUsers(users, withAlbums: mergedAlbums)
+        }
+        catch DataSourceError.conversionError {
+            print("error while converting data")
+        }
+        catch DataSourceError.urlError {
+            print("malformed url")
+        }
+        catch (let error) {
+            print("generic error \(error.localizedDescription)")
+        }
+        return nil
     }
     
     // MARK: - Private
     
     private func getEntity(_ entity:Entity) async throws -> Data? {
         guard let url = getUrl(forEntity: entity) else {
-            return nil
+            throw DataSourceError.urlError
         }
         return await RESTClient.getData(atURL: url)
     }
     
-    private func getAlbums() async -> [Album]?  {
+    private func getAlbums() async throws -> [Album]  {
         guard let albumsData = try? await getEntity(.Album),
               let albums = try? JSONDecoder().decode([Album].self, from: albumsData) else {
-            return nil
+                  throw DataSourceError.conversionError
         }
         return albums
     }
     
-    private func getPictures() async -> [Picture]? {
+    private func getPictures() async throws -> [Picture] {
         guard let picturesData = try? await getEntity(.Picture),
               let pictures = try? JSONDecoder().decode([Picture].self, from: picturesData) else {
-                  return nil
+                  throw DataSourceError.conversionError
               }
         return pictures
     }
     
-    private func getUsers() async -> [User]? {
+    private func getUsers() async throws -> [User] {
         guard let usersData = try? await getEntity(.User),
               let users = try? JSONDecoder().decode([User].self, from: usersData) else {
-                return nil
+                  throw DataSourceError.conversionError
             }
         return users
     }
