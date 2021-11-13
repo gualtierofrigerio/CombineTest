@@ -20,6 +20,7 @@
 		255C35A022C4B974008468FA /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255C359F22C4B974008468FA /* Entities.swift */; };
 		255C35A222C4CD71008468FA /* UsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255C35A122C4CD71008468FA /* UsersTableViewController.swift */; };
 		255C35A422C4CEF0008468FA /* RESTClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255C35A322C4CEF0008468FA /* RESTClient.swift */; };
+		25C4995A27398AAF005D4DAD /* DataSourceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C4995927398AAF005D4DAD /* DataSourceError.swift */; };
 		25EDD4EB22CA4D77007DFC5B /* EntitiesPropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDD4EA22CA4D77007DFC5B /* EntitiesPropertyWrapper.swift */; };
 		25EDD4ED22CA4F86007DFC5B /* DataSourcePW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDD4EC22CA4F86007DFC5B /* DataSourcePW.swift */; };
 		25FCDA2422CB927E0017D82D /* FilteredPropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FCDA2322CB927E0017D82D /* FilteredPropertyWrapper.swift */; };
@@ -42,6 +43,7 @@
 		255C359F22C4B974008468FA /* Entities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
 		255C35A122C4CD71008468FA /* UsersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableViewController.swift; sourceTree = "<group>"; };
 		255C35A322C4CEF0008468FA /* RESTClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RESTClient.swift; sourceTree = "<group>"; };
+		25C4995927398AAF005D4DAD /* DataSourceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceError.swift; sourceTree = "<group>"; };
 		25EDD4EA22CA4D77007DFC5B /* EntitiesPropertyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntitiesPropertyWrapper.swift; sourceTree = "<group>"; };
 		25EDD4EC22CA4F86007DFC5B /* DataSourcePW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourcePW.swift; sourceTree = "<group>"; };
 		25FCDA2322CB927E0017D82D /* FilteredPropertyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredPropertyWrapper.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 				2548623D22B1474B009B0C5A /* AppDelegate.swift */,
 				255C359D22C4B8C0008468FA /* DataSource.swift */,
 				254C445727304DDB00372D91 /* DataSourceAsync.swift */,
+				25C4995927398AAF005D4DAD /* DataSourceError.swift */,
 				25EDD4EC22CA4F86007DFC5B /* DataSourcePW.swift */,
 				255C359F22C4B974008468FA /* Entities.swift */,
 				25EDD4EA22CA4D77007DFC5B /* EntitiesPropertyWrapper.swift */,
@@ -175,6 +178,7 @@
 				255C359E22C4B8C0008468FA /* DataSource.swift in Sources */,
 				25EDD4EB22CA4D77007DFC5B /* EntitiesPropertyWrapper.swift in Sources */,
 				2548624222B1474B009B0C5A /* RegistrationViewController.swift in Sources */,
+				25C4995A27398AAF005D4DAD /* DataSourceError.swift in Sources */,
 				255C35A222C4CD71008468FA /* UsersTableViewController.swift in Sources */,
 				254C445827304DDB00372D91 /* DataSourceAsync.swift in Sources */,
 				2548623E22B1474B009B0C5A /* AppDelegate.swift in Sources */,
