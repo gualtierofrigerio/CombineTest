@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol Filterable {
     var filterField:String { get }
@@ -28,11 +29,17 @@ struct Album:Codable {
 }
 
 struct Picture:Codable {
-    var id:Int
-    var albumId:Int
-    var title:String
-    var url:String
-    var thumbnailUrl:String
+    var id: Int
+    var albumId: Int
+    var title: String
+    var url: String
+    var thumbnailUrl: String
+}
+
+struct PictureWithImage {
+    var title: String
+    var imageUrl: String
+    var image: UIImage?
 }
 
 struct User:Codable, Filterable {
