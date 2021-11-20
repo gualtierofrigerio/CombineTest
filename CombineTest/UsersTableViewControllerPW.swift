@@ -46,6 +46,21 @@ class UsersTableViewControllerPW: UITableViewController {
         return makeCell(indexPath: indexPath)
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let user = _users.filtered[indexPath.row]
+        let album = user.albums?[0]
+        let viewModel = PicturesCollectionVM()
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let vc = storyboard.instantiateViewController(withIdentifier: "PicturesCollectionVC") as? PicturesCollectionVC {
+            vc.viewModel = viewModel
+            viewModel.viewController = vc
+            if #available(iOS 15.0.0, *) {
+                viewModel.loadPictures(album?.pictures ?? [])
+            }
+            present(vc, animated: true)
+        }
+    }
+    
     // MARK: - Private
     private func applyFilter(_ filter:String) {
         _users.filter = filter
