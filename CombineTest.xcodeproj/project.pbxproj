@@ -15,6 +15,9 @@
 		2548624A22B1474B009B0C5A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2548624822B1474B009B0C5A /* LaunchScreen.storyboard */; };
 		2548625222B25762009B0C5A /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2548625122B25762009B0C5A /* RegistrationViewModel.swift */; };
 		254C445827304DDB00372D91 /* DataSourceAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C445727304DDB00372D91 /* DataSourceAsync.swift */; };
+		255636222747FFBA00043F07 /* PicturesCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255636212747FFBA00043F07 /* PicturesCollectionVC.swift */; };
+		255636242748201500043F07 /* PicturesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255636232748201500043F07 /* PicturesLoader.swift */; };
+		255636262748225500043F07 /* PicturesCollectionVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255636252748225500043F07 /* PicturesCollectionVM.swift */; };
 		255C359C22C4B62D008468FA /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255C359B22C4B62D008468FA /* MainViewController.swift */; };
 		255C359E22C4B8C0008468FA /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255C359D22C4B8C0008468FA /* DataSource.swift */; };
 		255C35A022C4B974008468FA /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255C359F22C4B974008468FA /* Entities.swift */; };
@@ -38,6 +41,9 @@
 		2548624B22B1474B009B0C5A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2548625122B25762009B0C5A /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		254C445727304DDB00372D91 /* DataSourceAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceAsync.swift; sourceTree = "<group>"; };
+		255636212747FFBA00043F07 /* PicturesCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturesCollectionVC.swift; sourceTree = "<group>"; };
+		255636232748201500043F07 /* PicturesLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturesLoader.swift; sourceTree = "<group>"; };
+		255636252748225500043F07 /* PicturesCollectionVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturesCollectionVM.swift; sourceTree = "<group>"; };
 		255C359B22C4B62D008468FA /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		255C359D22C4B8C0008468FA /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		255C359F22C4B974008468FA /* Entities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
@@ -89,6 +95,9 @@
 				25EDD4EA22CA4D77007DFC5B /* EntitiesPropertyWrapper.swift */,
 				25FCDA2322CB927E0017D82D /* FilteredPropertyWrapper.swift */,
 				255C359B22C4B62D008468FA /* MainViewController.swift */,
+				255636212747FFBA00043F07 /* PicturesCollectionVC.swift */,
+				255636252748225500043F07 /* PicturesCollectionVM.swift */,
+				255636232748201500043F07 /* PicturesLoader.swift */,
 				2548624122B1474B009B0C5A /* RegistrationViewController.swift */,
 				2548625122B25762009B0C5A /* RegistrationViewModel.swift */,
 				255C35A322C4CEF0008468FA /* RESTClient.swift */,
@@ -183,7 +192,10 @@
 				254C445827304DDB00372D91 /* DataSourceAsync.swift in Sources */,
 				2548623E22B1474B009B0C5A /* AppDelegate.swift in Sources */,
 				2548624022B1474B009B0C5A /* SceneDelegate.swift in Sources */,
+				255636222747FFBA00043F07 /* PicturesCollectionVC.swift in Sources */,
 				255C35A022C4B974008468FA /* Entities.swift in Sources */,
+				255636262748225500043F07 /* PicturesCollectionVM.swift in Sources */,
+				255636242748201500043F07 /* PicturesLoader.swift in Sources */,
 				25FCDA2422CB927E0017D82D /* FilteredPropertyWrapper.swift in Sources */,
 				2548625222B25762009B0C5A /* RegistrationViewModel.swift in Sources */,
 				255C35A422C4CEF0008468FA /* RESTClient.swift in Sources */,
