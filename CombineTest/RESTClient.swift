@@ -45,4 +45,43 @@ class RESTClient {
         }
         return data.0
     }
+    
+    // just a couple of example of using AsyncSequence with for loop and iterator
+    
+    @available (iOS 15.0, *)
+    class func getDataIterator(atURL url: URL) async -> Data? {
+        let request = URLRequest(url: url)
+        var data: Data? = nil
+        do {
+            let (bytes, _) = try await URLSession.shared.bytes(for: request, delegate: nil)
+            data = Data()
+            var iterator = bytes.makeAsyncIterator()
+            while let nextByte = try await iterator.next() {
+                data?.append(nextByte)
+            }
+        }
+        catch (let error) {
+            print("error while getting data \(error.localizedDescription)")
+        }
+        
+        return data
+    }
+    
+    @available (iOS 15.0, *)
+    class func getDataStream(atURL url: URL) async -> Data? {
+        let request = URLRequest(url: url)
+        var data: Data? = nil
+        do {
+            let (bytes, _) = try await URLSession.shared.bytes(for: request, delegate: nil)
+            data = Data()
+            for try await b in bytes {
+                data?.append(b)
+            }
+        }
+        catch (let error) {
+            print("error while getting data \(error.localizedDescription)")
+        }
+        
+        return data
+    }
 }
