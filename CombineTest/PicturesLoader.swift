@@ -10,20 +10,14 @@ import Foundation
 import UIKit
 
 @available(iOS 15.0.0, *)
-class PicturesLoader: AsyncSequence, AsyncIteratorProtocol {
+class PicturesLoader {
     typealias Element = PictureWithImage
     
     init(withPictures pictures: [PictureWithImage]) {
         self.pictures = pictures
     }
     
-    func next() async throws -> Element? {
-        await getNextPicture()
-    }
-    
-    func makeAsyncIterator() -> PicturesLoader {
-        self
-    }
+    // MARK: - Private
     
     private var pictures: [PictureWithImage] = []
     
@@ -37,5 +31,16 @@ class PicturesLoader: AsyncSequence, AsyncIteratorProtocol {
             return picture
         }
         return nil
+    }
+}
+
+@available(iOS 15.0.0, *)
+extension PicturesLoader: AsyncSequence, AsyncIteratorProtocol {
+    func next() async throws -> Element? {
+        await getNextPicture()
+    }
+    
+    func makeAsyncIterator() -> PicturesLoader {
+        self
     }
 }
