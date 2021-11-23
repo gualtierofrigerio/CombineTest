@@ -34,5 +34,20 @@ class PicturesCollectionVM {
         }
     }
     
+    @available(iOS 15.0.0, *)
+    func loadPicturesStream(_ pictures: [Picture]) {
+        let picturesWithImages: [PictureWithImage]  = pictures.map {
+            PictureWithImage(title: $0.title, imageUrl: $0.url)
+        }
+        let picturesLoader = PicturesLoader(withPictures: picturesWithImages)
+        let stream = picturesLoader.getPicturesStream()
+        Task {
+            for await picture in stream {
+                loadedPictures.append(picture)
+                await viewController?.collectionView.reloadData()
+            }
+        }
+    }
+    
     private var loadedPictures: [PictureWithImage] = []
 }
