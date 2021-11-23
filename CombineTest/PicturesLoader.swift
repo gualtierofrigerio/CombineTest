@@ -17,6 +17,23 @@ class PicturesLoader {
         self.pictures = pictures
     }
     
+    func getPicturesStream() -> AsyncStream<PictureWithImage> {
+        AsyncStream { continuation in
+            Task {
+                for picture in pictures {
+                    if let url = URL(string: picture.imageUrl),
+                       let data = await RESTClient.getData(atURL: url),
+                       let image = UIImage(data: data) {
+                        var pictureToReturn = picture
+                        pictureToReturn.image = image
+                        continuation.yield(pictureToReturn)
+                    }
+                }
+                continuation.finish()
+            }
+        }
+    }
+    
     // MARK: - Private
     
     private var pictures: [PictureWithImage] = []
