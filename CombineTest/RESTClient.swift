@@ -84,4 +84,12 @@ class RESTClient {
         
         return data
     }
+    
+    class func getDataCompletion(atURL url: URL,
+                                 completion: @escaping ((Data?) -> ())) {
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            completion(data)
+        }
+        task.resume()
+    }
 }
