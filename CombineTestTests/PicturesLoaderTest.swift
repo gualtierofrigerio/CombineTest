@@ -23,14 +23,14 @@ class PicturesLoaderTest: XCTestCase {
     }
 
     func testPicturesStream() async {
-        let picturesLoader = PicturesLoader(withPictures: [pictureToTest])
-        var pictures: [PictureWithImage] = []
+        let picturesTestArray = [pictureToTest]
+        let picturesLoader = PicturesLoader(withPictures: picturesTestArray)
+        var loaded = 0
         for await picture in picturesLoader.getPicturesStream() {
             XCTAssertNotNil(picture.image)
-            pictures.append(picture)
-            loaded = true
+            loaded += 1
         }
-        XCTAssertEqual(pictures.isEmpty, false)
+        XCTAssertEqual(loaded, picturesTestArray.count)
     }
 
 }
