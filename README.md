@@ -4,13 +4,16 @@ Sample project to play with the Combine Framework
 Articles:
 
 
-https://www.gfrigerio.com/combine-first-example/
+[Combine first example](https://www.gfrigerio.com/combine-first-example/)
 
 
-https://www.gfrigerio.com/networking-example-with-combine/
+[Networking example with Combine](https://www.gfrigerio.com/networking-example-with-combine/)
 
 
-https://www.gfrigerio.com/introduction-to-async-await/
+[Introduction to async await](https://www.gfrigerio.com/introduction-to-async-await/)
 
 
-https://www.gfrigerio.com/create-your-own-asyncsequence/
+[Create your own AsyncSequence](https://www.gfrigerio.com/create-your-own-asyncsequence/)
+
+
+[Test asynchronous code](https://www.gfrigerio.com/test-asynchronous-code/)
